@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang={LANGUAGE} dir=ltr>
+  <head>
+    <meta charset=utf-8>
+    <link rel=stylesheet href={WEBURL}modules/school/views/print.css>
+    <title>{LNG_Student Identification Form}</title>
+  </head>
+  <body onload="window.print()">
+    <section>
+      <h1>{LNG_Student Identification Form}</h1>
+      <table>
+        <tr>
+          <td><h2>%SCHOOLNAME%</h2></td>
+          <td><h2>{LNG_Province} %SCHOOLPROVINCE%</h2></td>
+        </tr>
+        <tr>
+          <td class="center">{LNG_Class} %CLASS%</td>
+          <td class="center">{LNG_Academic year} %YEAR%</td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td class="center">{LNG_Name} %NAME%</td>
+          <td class="center">{LNG_Student ID} %STUDENT%</td>
+          <td class="center">{LNG_Room} %ROOM%</td>
+          <td class="center">{LNG_Number} %NUMBER%</td>
+        </tr>
+      </table>
+      <table class="border">
+        <thead>
+          <tr>%THEAD%</tr>
+        </thead>
+        <tbody>
+          %TBODY%
+        </tbody>
+      </table>
+    </section>
+  </body>
+</html>
