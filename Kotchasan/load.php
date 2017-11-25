@@ -141,18 +141,6 @@ if (!defined('WEB_URL')) {
   define('WEB_URL', $scheme.$host.$contextPrefix.str_replace($docRoot, '', ROOT_PATH));
 }
 /**
- * โฟลเดอร์เก็บข้อมูล
- */
-if (!defined('DATA_FOLDER')) {
-  define('DATA_FOLDER', 'datas/');
-}
-/**
- * โฟลเดอร์เก็บ Template
- */
-if (!defined('TEMPLATE_ROOT')) {
-  define('TEMPLATE_ROOT', APP_PATH);
-}
-/**
  * กำหนดจำนวนครั้งในการตรวจสอบ token
  * ถ้ามีการตรวจสอบ token เกินกว่าที่กำหนดจะถูกลบออก
  * ป้องกันการ buteforce

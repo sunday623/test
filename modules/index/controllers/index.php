@@ -39,7 +39,7 @@ class Controller extends \Gcms\Controller
     // ตรวจสอบการ login
     Login::create();
     // กำหนด skin ให้กับ template
-    Template::init(self::$cfg->skin);
+    Template::init('skin/'.self::$cfg->skin);
     // View
     self::$view = new \Gcms\View;
     if ($login = Login::isMember()) {
@@ -78,7 +78,7 @@ class Controller extends \Gcms\Controller
     // เนื้อหา
     self::$view->setContents(array(
       // main template
-      '/{MAIN}/' => $main->execute(self::$request),
+      '/{MAIN}/' => $main->execute($request),
       // language menu
       '/{LANGUAGES}/' => implode('', $languages),
       // title

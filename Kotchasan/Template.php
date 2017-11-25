@@ -43,20 +43,20 @@ class Template
   protected $num;
   /**
    * ชื่อ template ที่กำลังใช้งานอยู่ รวมโฟลเดอร์ที่เก็บ template ด้วย
-   * เช่น skin/default/
+   * นับแต่ DOCUMENT_ROOT เช่น skin/default/
    *
    * @var string
    */
-  public static $src;
+  protected static $src;
 
   /**
    * เรียกใช้งาน template ในครั้งแรก
    *
-   * @param string $skin
+   * @param string $skin ไดเร็คทอรี่ของ template ตั้งแต่ DOCUMENT_ROOT ไม่ต้องมี / ปิดท้าย เช่น skin/default
    */
   public static function init($skin)
   {
-    self::$src = 'skin/'.($skin == '' ? '' : $skin.'/' );
+    self::$src = $skin == '' ? '' : $skin.'/';
   }
 
   /**
@@ -186,7 +186,7 @@ class Template
    */
   public static function load($owner, $module, $name)
   {
-    $src = self::getPath();
+    $src = APP_PATH.self::$src;
     if ($module != '' && is_file($src.$module.'/'.$name.'.html')) {
       return file_get_contents($src.$module.'/'.$name.'.html');
     } elseif ($owner != '' && is_file($src.$owner.'/'.$name.'.html')) {
@@ -208,13 +208,13 @@ class Template
   }
 
   /**
-   * คืนค่าโฟลเดอร์ของ template
+   * คืนค่าไดเร็คทอรี่ของ template ตั้งแต่ DOCUMENT_ROOT เช่น skin/default/
    *
    * @return string
    */
-  public static function getPath()
+  public static function get()
   {
-    return TEMPLATE_ROOT.self::$src;
+    return self::$src;
   }
 
   /**

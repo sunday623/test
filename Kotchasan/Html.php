@@ -324,7 +324,7 @@ class Html extends \Kotchasan\KBase
         if ($ajax) {
           $script .= ', "'.$action.'"';
           if (isset($onbeforesubmit)) {
-            $script .= ',null ,false , function(){return '.$onbeforesubmit.'(this)}';
+            $script .= ',null ,false , function(){return '.$onbeforesubmit.'}';
           }
         } else {
           $prop['action'] = $action;

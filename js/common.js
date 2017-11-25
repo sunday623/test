@@ -72,7 +72,9 @@ function defaultSubmit(ds) {
       initWriteTab("accordient_menu", val);
     } else if (remove.test(prop)) {
       if ($E(val)) {
-        $G(val).remove();
+        $G(val).fadeOut(function () {
+          $G(val).remove();
+        });
       }
     } else if (prop == 'input') {
       el = $G(val);
@@ -256,7 +258,9 @@ function checkIdcard() {
   var ids = this.id.split('_');
   var id = '&id=' + floatval($E(ids[0] + '_id').value);
   var i, sum;
-  if (value.length != 13) {
+  if (value.length == 0) {
+    this.reset();
+  } else if (value.length != 13) {
     this.invalid(this.title);
   } else {
     for (i = 0, sum = 0; i < 12; i++) {
@@ -558,13 +562,12 @@ $G(window).Ready(function () {
       }
     }
   });
-  var patt = /^lang_([a-z]{2,2})$/;
-  forEach(document.body.getElementsByTagName("a"), function () {
-    if (patt.test(this.id)) {
-      callClick(this, function () {
-        var hs = patt.exec(this.id);
+  forEach(document.body.elems("a"), function () {
+    if (/^lang_([a-z]{2,2})$/.test(this.id)) {
+      callClick(this, function (e) {
+        var hs = /^lang_([a-z]{2,2})$/.exec(this.id);
         window.location = replaceURL('lang', hs[1]);
-        return false;
+        GEvent.stop(e);
       });
     }
   });

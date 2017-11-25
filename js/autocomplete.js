@@ -237,8 +237,14 @@ function initAutoComplete(id, model, displayFields, icon, options) {
     for (var i in df) {
       datas.push(this[df[i]]);
     }
-    var patt = new RegExp('(' + $E(id).value.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&') + ')', 'gi');
-    return '<p><span class="icon-' + (icon || 'search') + '">' + datas.join(' ').unentityify().replace(patt, '<em>$1</em>') + '</span></p>';
+    var row = datas.join(' ').unentityify();
+    forEach($E(id).value.replace(/[\s]+/, ' ').split(' '), function () {
+      if (this.length > 0) {
+        var patt = new RegExp('(' + this.preg_quote() + ')', 'gi');
+        row = row.replace(patt, '<em>$1</em>');
+      }
+    });
+    return '<p><span class="icon-' + (icon || 'search') + '">' + row + '</span></p>';
   }
   var o = {
     get: doGetQuery,
