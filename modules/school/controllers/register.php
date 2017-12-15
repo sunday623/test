@@ -41,7 +41,9 @@ class Controller extends \Gcms\Controller
     if (!empty($course->id) && Login::isTeacher('can_manage_course')) {
       $this->title .= ' '.Language::get('Course').' '.$course->course_name.($course->course_code != '' ? ' ('.$course->course_code.')' : '');
       // แสดงผล
-      $section = Html::create('section');
+      $section = Html::create('section', array(
+          'class' => 'content_bg'
+      ));
       // breadcrumbs
       $breadcrumbs = $section->add('div', array(
         'class' => 'breadcrumbs'

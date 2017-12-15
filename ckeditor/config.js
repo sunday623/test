@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -16,6 +16,9 @@ CKEDITOR.editorConfig = function (config) {
   /* ใช้ br แทน p เมื่อกด Enter */
   config.enterMode = CKEDITOR.ENTER_BR;
   config.shiftEnterMode = CKEDITOR.ENTER_P;
+
+  /* Simplify the dialog windows. */
+  config.removeDialogTabs = 'image:advanced;link:advanced';
 
   /* Prevent filler nodes in all empty blocks */
   config.fillEmptyBlocks = false;
@@ -94,7 +97,7 @@ CKEDITOR.editorConfig = function (config) {
     ['Undo', 'Redo'],
     ['RemoveFormat', 'Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
     ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-    ['Link', 'Unlink', 'Image', 'Flash'],
+    ['Link', 'Unlink', 'Image'],
     ['Table', 'Smiley', 'SpecialChar'],
     ['NumberedList', 'BulletedList'],
     '/',
@@ -106,7 +109,7 @@ CKEDITOR.editorConfig = function (config) {
     ['Undo', 'Redo', '-', 'Find', 'Replace'],
     ['RemoveFormat', 'Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
     ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-    ['Link', 'Unlink', 'Image', 'Flash'],
+    ['Link', 'Unlink', 'Image'],
     ['NumberedList', 'BulletedList'],
     '/',
     ['Styles', 'Format', 'Font', 'FontSize'],

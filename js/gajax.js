@@ -977,6 +977,55 @@ window.$K = (function () {
       }
       return this.elem.value;
     },
+    setOptions: function (json, value) {
+      if (this.tagName.toLowerCase() == 'select') {
+        for (var i = this.options.length; i > 0; i--) {
+          this.removeChild(this.options[i - 1]);
+        }
+        var selectedIndex = 0;
+        if (json) {
+          var i = 0;
+          for (var key in json) {
+            if (key == value) {
+              selectedIndex = i;
+            }
+            var option = document.createElement('option');
+            option.innerHTML = json[key];
+            option.value = key;
+            this.appendChild(option);
+            i++;
+          }
+        }
+        this.selectedIndex = selectedIndex;
+      }
+    },
+    getSelectedText: function () {
+      var text = '';
+      if (this.selectionStart) {
+        if (this.selectionStart != this.selectionEnd) {
+          text = this.value.substring(this.selectionStart, this.selectionEnd);
+        }
+      } else {
+        var range = document.selection.createRange();
+        if (range.parentElement() === this) {
+          text = range.text;
+        }
+      }
+      return text;
+    },
+    setSelectedText: function (value) {
+      if (this.selectionStart) {
+        if (this.selectionStart != this.selectionEnd) {
+          this.value = this.value.substring(0, this.selectionStart) + value + this.value.substring(this.selectionEnd);
+        }
+      } else {
+        var range = document.selection.createRange();
+        if (range.parentElement() === this) {
+          range.text = value;
+        }
+      }
+      return this;
+    },
     element: function () {
       return Object.isString(this.elem) ? document.getElementById(this.elem) : this.elem;
     },
@@ -1402,7 +1451,7 @@ window.$K = (function () {
         var val = this.value;
         var key = GEvent.keyCode(e);
         if (!((key > 36 && key < 41) || key == 8 || key == 9 || key == 13 || GEvent.isCtrlKey(e))) {
-          if (data.maxlength > 0 && val.length >= data.maxlength) {
+          if (data.maxlength > 0 && val.length >= data.maxlength && this.getSelectedText() == '') {
             GEvent.stop(e);
           } else if (data.pattern && data.type == 'text') {
             val = String.fromCharCode(key);
@@ -1416,7 +1465,7 @@ window.$K = (function () {
         var val = this.value;
         var data = this.data;
         if (e && val !== '' && data.type == 'number' && e.type == 'change') {
-          val = val.replace(/[^0-9]+/, '');
+          val = val.replace(/[^0-9\.\-]+/, '');
           if (data.min) {
             val = Math.max(data.min, floatval(val));
           }
@@ -1527,10 +1576,6 @@ window.$K = (function () {
             if (obj.title != '') {
               text.title = obj.title;
             }
-            if (obj.disabled) {
-              text.disabled = true;
-              hidden.disabled = true;
-            }
             text.className = elem.className;
             var src = new GCalendar(text, function () {
               hidden.value = this.getDateFormat('y-m-d');
@@ -1554,6 +1599,9 @@ window.$K = (function () {
               }
               if (hidden.disabled != text.disabled) {
                 text.disabled = hidden.disabled ? true : false;
+              }
+              if (hidden.readOnly != text.readOnly) {
+                text.readOnly = hidden.readOnly ? true : false;
               }
             }, 500);
             hidden.display = text;
@@ -1582,6 +1630,9 @@ window.$K = (function () {
             }
             if (elem.maxlength > 0) {
               text.maxlength = elem.maxlength;
+            }
+            if (elem.readOnly) {
+              text.readOnly = true;
             }
             text.className = elem.className;
             elem.replace(text);

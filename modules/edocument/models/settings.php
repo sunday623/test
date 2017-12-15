@@ -47,6 +47,7 @@ class Model extends \Kotchasan\KBase
         $config->edocument_send_mail = $request->post('edocument_send_mail')->toBoolean();
         $config->edocument_file_typies = array_keys($typies);
         $config->edocument_upload_size = $request->post('edocument_upload_size')->toInt();
+        $config->edocument_download_action = $request->post('edocument_download_action')->toInt();
         if (empty($config->edocument_file_typies)) {
           // คืนค่า input ที่ error
           $ret['ret_edocument_file_typies'] = 'this';

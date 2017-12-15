@@ -43,7 +43,9 @@ class Controller extends \Gcms\Controller
       $this->title .= ' {LNG_Academic year} '.$course->year.'/'.$course->term;
       $this->title = Language::trans($this->title);
       // แสดงผล
-      $section = Html::create('section');
+      $section = Html::create('section', array(
+          'class' => 'content_bg'
+      ));
       // breadcrumbs
       $breadcrumbs = $section->add('div', array(
         'class' => 'breadcrumbs'

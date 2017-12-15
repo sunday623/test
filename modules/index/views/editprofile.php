@@ -53,7 +53,7 @@ class View extends \Gcms\View
         'labelClass' => 'g-input icon-email',
         'label' => '{LNG_Email}',
         'comment' => '{LNG_Email address used for login or request a new password}',
-        'disabled' => $login_admin || $login['id'] == $user['id'] ? false : true,
+        'disabled' => $login_admin ? false : true,
         'maxlength' => 50,
         'value' => $user['username'],
         'validator' => array('keyup,change', 'checkUsername', 'index.php/index/model/checker/username')
@@ -133,7 +133,7 @@ class View extends \Gcms\View
     ));
     // submit
     $fieldset->add('submit', array(
-      'class' => 'button save large',
+      'class' => 'button save large icon-save',
       'value' => '{LNG_Save}'
     ));
     $fieldset->add('hidden', array(

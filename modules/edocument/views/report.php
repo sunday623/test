@@ -43,6 +43,8 @@ class View extends \Gcms\View
       'hideColumns' => array('id'),
       /* รายการต่อหน้า */
       'perPage' => $request->cookie('edocument_perPage', 30)->toInt(),
+      /* เรียงลำดับ */
+      'sort' => 'last_update DESC',
       /* ฟังก์ชั่นจัดรูปแบบการแสดงผลแถวของตาราง */
       'onRow' => array($this, 'onRow'),
       /* ส่วนหัวของตาราง และการเรียงลำดับ (thead) */

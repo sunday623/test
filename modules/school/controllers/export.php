@@ -39,6 +39,9 @@ class Controller extends \Kotchasan\Controller
       case 'mygrade':
         $this->mygrade($request);
         break;
+      case 'course':
+        $this->course($request);
+        break;
     }
   }
 
@@ -73,7 +76,15 @@ class Controller extends \Kotchasan\Controller
       $datas = array();
       $school_grades = Language::get('SCHOOL_GRADES');
       $course_typies = Language::get('COURSE_TYPIES');
+      $credit = 0;
+      $total_credit = 0;
+      $total = 0;
       foreach (\School\Grade\Model::toDataTable($student)->toArray()->cacheOn()->execute() AS $item) {
+        if ($item['credit'] > 0 && $item['grade'] > 0) {
+          $credit += $item['credit'];
+          $total += ($item['grade'] * $item['credit']);
+        }
+        $total_credit += $item['credit'];
         $datas[] = array(
           $item['course_code'],
           $item['course_name'],
@@ -84,13 +95,15 @@ class Controller extends \Kotchasan\Controller
       }
       if ($request->get('export')->toString() == 'print') {
         // ส่งออกเป็น HTML สำหรับพิมพ์
-        \School\Export\View::render($student, $header, $datas);
+        \School\Export\View::render($student, $header, $datas, $credit, $total / $total_credit);
       } else {
         $title = array(
           array(Language::trans('{LNG_Name} {LNG_Surname}'), $student->name),
           array(Language::get('Student ID'), $student->student_id),
           array(Language::get('Academic year'), $student->year.'/'.$student->term)
         );
+        $datas[] = array(Language::get('Credits in this semester'), number_format($credit, 1, '.', ''));
+        $datas[] = array(Language::get('Grades in this semester'), number_format($total / $total_credit, 2, '.', ''));
         // ส่งออกไฟล์ csv
         \Kotchasan\Csv::send(implode('_', array(
           $student->student_id,
@@ -166,5 +179,39 @@ class Controller extends \Kotchasan\Controller
     }
     // ส่งออกไฟล์ student.csv
     \Kotchasan\Csv::send('student', $header, $datas);
+  }
+
+  /**
+   * ส่งออกข้อมูลตัวอย่าง course เป็นไฟล์ CSV (course.csv)
+   */
+  private function course(Request $request)
+  {
+    // header
+    $header = array(
+      Language::trans('{LNG_Course Code} *, **'),
+      Language::trans('{LNG_Course Name} *'),
+      Language::trans('{LNG_Credit} *'),
+      Language::get('Period'),
+      Language::get('Type'),
+      Language::get('Class'),
+      Language::trans('Academic year'),
+      Language::get('Term'),
+      Language::get('Teacher')
+    );
+    // ข้อมูล
+    $teacher_id = $request->get('teacher_id')->toInt();
+    $datas = array(
+      '',
+      '',
+      '',
+      '',
+      $request->get('typ')->toInt(),
+      $request->get('class')->toInt(),
+      $request->get('year')->toInt(),
+      $request->get('term')->toInt(),
+      $teacher_id == 0 ? '' : $teacher_id
+    );
+    // ส่งออกไฟล์ course.csv
+    \Kotchasan\Csv::send('course', $header, array($datas));
   }
 }

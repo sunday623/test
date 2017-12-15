@@ -201,12 +201,18 @@ CREATE TABLE `{prefix}_student` (
 CREATE TABLE `{prefix}_user` (
   `id` int(11) NOT NULL,
   `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `salt` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL,
   `permission` text COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `sex` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_card` varchar(13) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `expire_date` date NOT NULL,
+  `address` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `phone` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `provinceID` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `zipcode` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `visited` int(11) UNSIGNED DEFAULT '0',
   `lastvisited` int(11) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
@@ -220,8 +226,8 @@ CREATE TABLE `{prefix}_user` (
   `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `{prefix}_user` (`id`, `username`, `password`, `status`, `permission`, `name`) VALUES
-(1, 'admin@localhost', 'b620e8b83d7fcf7278148d21b088511917762014', 1, 'can_config,can_handle_all_edocument,can_upload_edocument', 'แอดมิน');
+INSERT INTO `{prefix}_user` (`id`, `username`, `salt`, `password`, `status`, `permission`, `name`) VALUES
+(1, 'admin@localhost', 'admin@localhost', 'b620e8b83d7fcf7278148d21b088511917762014', 1, 'can_config,can_handle_all_edocument,can_upload_edocument', 'แอดมิน');
 --
 -- Indexes for dumped tables
 --

@@ -66,6 +66,12 @@ class Model extends \Kotchasan\Model
                 // ส่งค่ากลับ
                 $ret['location'] = $request->getUri()->postBack('index.php', array('module' => 'school-courses', 'id' => 0));
                 $ret['alert'] = Language::replace('Successfully imported :count items', array(':count' => $this->row));
+              } elseif ($type == 'course' && Login::isTeacher()) {
+                // import ข้อมูล
+                \Kotchasan\Csv::read($file->getTempFileName(), array($this, 'importCourse'));
+                // ส่งค่ากลับ
+                $ret['location'] = $request->getUri()->postBack('index.php', array('module' => 'school-courses', 'id' => 0));
+                $ret['alert'] = Language::replace('Successfully imported :count items', array(':count' => $this->row));
               }
             }
           } elseif ($file->hasError()) {
@@ -83,6 +89,71 @@ class Model extends \Kotchasan\Model
     }
     // คืนค่าเป็น JSON
     echo json_encode($ret);
+  }
+
+  /**
+   * ฟังก์ชั่นรับค่าจากการอ่าน CSV
+   *
+   * @param array $data
+   */
+  public function importCourse($data)
+  {
+    foreach ($data as $key => $value) {
+      if ($key == 0) {
+        // course_code
+        $course['course_code'] = iconv('Windows-874', 'UTF-8', Text::topic($value));
+      } elseif ($key == 1) {
+        // course_name
+        $course['course_name'] = iconv('Windows-874', 'UTF-8', Text::topic($value));
+      } elseif ($key == 2) {
+        // credit
+        $course['credit'] = (double)$value;
+      } elseif ($key == 3) {
+        // period
+        $course['period'] = (int)$value;
+      } elseif ($key == 4) {
+        // type
+        $course['type'] = (int)$value;
+      } elseif ($key == 5) {
+        // class
+        $course['class'] = (int)$value;
+      } elseif ($key == 6) {
+        // year
+        $course['year'] = (int)$value;
+      } elseif ($key == 7) {
+        // term
+        $course['term'] = (int)$value;
+      } elseif ($key == 8) {
+        // teacher_id
+        $course['teacher_id'] = (int)$value;
+      }
+    }
+    if ($course['course_code'] != '' && $course['course_name'] != '' && $course['credit'] > 0) {
+      $where = array(
+        array('course_code', $course['course_code'])
+      );
+      if ($course['teacher_id'] == 0) {
+        $course['year'] = 0;
+        $course['term'] = 0;
+      } else {
+        $where[] = array('teacher_id', $course['teacher_id']);
+        $where[] = array('year', $course['year']);
+        $where[] = array('term', $course['term']);
+      }
+      // ตรวจสอบข้อมูลซ้ำ
+      $search = $this->db()->createQuery()
+        ->select('id', 'teacher_id')
+        ->from('course')
+        ->where($where)
+        ->toArray()
+        ->first();
+      if (!$search) {
+        // บันทึกเกรด
+        $this->db()->insert($this->getTableName('course'), $course);
+        // นำเข้าข้อมูลสำเร็จ
+        $this->row++;
+      }
+    }
   }
 
   /**

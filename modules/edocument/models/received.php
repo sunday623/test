@@ -11,6 +11,7 @@ namespace Edocument\Received;
 use \Kotchasan\Http\Request;
 use \Gcms\Login;
 use \Kotchasan\Language;
+use \Kotchasan\Database\Sql;
 
 /**
  * โมเดลสำหรับแสดงรายการหนังสือรับ (received.php)
@@ -33,7 +34,7 @@ class Model extends \Kotchasan\Model
   {
     $model = new static;
     $sql2 = $model->db()->createQuery()
-      ->select('E.downloads')
+      ->select(Sql::create('IF(E.`downloads`>0, 1, 0)'))
       ->from('edocument_download E')
       ->where(array(
         array('E.document_id', 'A.id'),
@@ -43,8 +44,7 @@ class Model extends \Kotchasan\Model
     return $model->db()->createQuery()
         ->select('A.id', 'A.document_no', array($sql2, 'new'), 'A.ext', 'A.topic', 'A.sender_id', 'A.size', 'A.last_update')
         ->from('edocument A')
-        ->where(array('A.reciever', 'LIKE', '%,'.$login['status'].',%'))
-        ->order('new ASC', 'A.last_update DESC');
+        ->where(array('A.reciever', 'LIKE', '%,'.$login['status'].',%'));
   }
 
   /**

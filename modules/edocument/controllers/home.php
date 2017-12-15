@@ -30,7 +30,7 @@ class Controller extends \Kotchasan\KBase
   public static function addCard(Request $request, $card, $login)
   {
     if ($login['status'] != self::$cfg->student_status) {
-      \Index\Home\Controller::renderCard($card, 'icon-edocument', 'E-Document', \Edocument\Home\Model::getNew($login), 'New document', 'index.php?module=edocument-received');
+      \Index\Home\Controller::renderCard($card, 'icon-edocument', 'E-Document', number_format(\Edocument\Home\Model::getNew($login)), '{LNG_New document}', 'index.php?module=edocument-received');
     }
   }
 }

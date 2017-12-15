@@ -23,7 +23,7 @@ function fbLogin() {
           for (var prop in response) {
             q.push(prop + '=' + encodeURIComponent(response[prop]));
           }
-          send(WEB_URL + 'index.php/' + ($E('facebook_action') ? $E('facebook_action').value : 'index/model/fblogin/chklogin'), q.join('&'), doLoginSubmit);
+          send(WEB_URL + 'index.php/' + ($E('facebook_action') ? $E('facebook_action').value : 'index/model/fblogin/chklogin'), q.join('&'), fbLoginSubmit);
         }
       });
     }
@@ -40,4 +40,17 @@ function initFacebook(appId, lng) {
     });
   };
   loadJavascript('facebook-jssdk', "//connect.facebook.net/" + (lng == 'th' ? 'th_TH' : 'en_US') + "/sdk.js");
+}
+function fbLoginSubmit(xhr) {
+  var ds = xhr.responseText.toJSON();
+  if (ds) {
+    if (ds.alert) {
+      alert(ds.alert);
+    }
+    if (ds.isMember == 1) {
+      window.location = window.location.href.replace('action=logout', 'action=login');
+    }
+  } else if (xhr.responseText != '') {
+    alert(xhr.responseText);
+  }
 }

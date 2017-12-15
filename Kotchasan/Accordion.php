@@ -19,7 +19,6 @@ class Accordion
 {
   private $id;
   private $datas;
-  private $select;
   private $type;
 
   /**
@@ -33,7 +32,6 @@ class Accordion
   {
     $this->id = $id;
     $this->datas = empty($items) ? array() : $items;
-    $this->select = null;
     $this->type = $onetab ? 'radio' : 'checkbox';
   }
 
@@ -46,10 +44,10 @@ class Accordion
    */
   public function add($title, $detail, $select = false)
   {
-    $this->datas[$title] = $detail;
-    if ($select) {
-      $this->select = $title;
-    }
+    $this->datas[$title] = array(
+      'detail' => $detail,
+      'select' => $select
+    );
   }
 
   /**
@@ -61,11 +59,11 @@ class Accordion
   {
     $html = '<div class="accordion">';
     $n = 1;
-    foreach ($this->datas as $title => $detail) {
+    foreach ($this->datas as $title => $item) {
       $html .= '<div class="item">';
-      $html .= '<input id="'.$this->id.$n.'" name="'.$this->id.'" type="'.$this->type.'"'.($title === $this->select ? ' checked' : '').'>';
+      $html .= '<input id="'.$this->id.$n.'" name="'.$this->id.'" type="'.$this->type.'"'.($item['select'] ? ' checked' : '').'>';
       $html .= '<label for="'.$this->id.$n.'">'.$title.'</label>';
-      $html .= '<div class="body"><div class="article">'.$detail.'</div></div>';
+      $html .= '<div class="body"><div class="article">'.$item['detail'].'</div></div>';
       $html .= '</div>';
       $n++;
     }

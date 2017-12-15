@@ -41,7 +41,9 @@ class Controller extends \Gcms\Controller
       // Login
       if ($login = Login::isMember()) {
         // แสดงผล
-        $section = Html::create('section');
+        $section = Html::create('section', array(
+            'class' => 'content_bg'
+        ));
         // breadcrumbs
         $breadcrumbs = $section->add('div', array(
           'class' => 'breadcrumbs'

@@ -37,7 +37,7 @@ class Controller extends \Gcms\Controller
       // ตรวจสอบการ login
       Login::create();
       // กำหนด skin ให้กับ template
-      Template::init('skin/'.self::$cfg->skin);
+      Template::init(self::$cfg->skin);
       // View
       self::$view = new \Gcms\View;
       // โมดูลจาก URL ถ้าไม่มีใช้ default (home)

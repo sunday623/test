@@ -64,7 +64,7 @@ class View extends \Gcms\View
     ));
     // submit
     $fieldset->add('submit', array(
-      'class' => 'button save large',
+      'class' => 'button save large icon-save',
       'value' => '{LNG_Save}'
     ));
     return $form->render();

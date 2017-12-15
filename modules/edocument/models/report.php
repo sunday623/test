@@ -48,7 +48,6 @@ class Model extends \Kotchasan\Model
         ->select('D.id', 'U.status', 'U.name', 'D.last_update', 'D.downloads')
         ->from('edocument_download D')
         ->join('user U', 'LEFT', array('U.id', 'D.member_id'))
-        ->where(array('D.document_id', $id))
-        ->order('D.last_update DESC');
+        ->where(array('D.document_id', $id));
   }
 }

@@ -27,9 +27,10 @@ class View extends \Gcms\View
    * ฟอร์มนำเข้าข้อมูลนักเรียน
    *
    * @param Request $request
+   * @param array $login
    * @return string
    */
-  public function render(Request $request)
+  public function render(Request $request, $login)
   {
     // form
     $form = Html::create('form', array(
@@ -42,7 +43,7 @@ class View extends \Gcms\View
         'token' => true
     ));
     $fieldset = $form->add('fieldset', array(
-      'title' => '{LNG_Import} {LNG_Student list}'
+      'title' => '{LNG_Details of} {LNG_Student}'
     ));
     // หมวดหมู่ของนักเรียน
     $categories = array();
@@ -79,7 +80,7 @@ class View extends \Gcms\View
     ));
     // submit
     $fieldset->add('submit', array(
-      'class' => 'button save large',
+      'class' => 'button save large icon-save',
       'value' => '{LNG_Import}'
     ));
     // type
@@ -89,6 +90,7 @@ class View extends \Gcms\View
     ));
     // Javascript
     $form->script('initSchoolImportStudent();');
+    // คืนค่า HTML Form
     return $form->render();
   }
 }

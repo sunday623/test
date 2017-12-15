@@ -51,7 +51,7 @@ class View extends \Gcms\View
         'token' => true
     ));
     $fieldset = $form->add('fieldset', array(
-      'title' => '{LNG_Import} {LNG_Grade}'
+      'title' => '{LNG_Details of} {LNG_Grade}'
     ));
     $groups = $fieldset->add('groups');
     // course
@@ -74,14 +74,13 @@ class View extends \Gcms\View
     ));
     $groups = $fieldset->add('groups');
     // year
-    $groups->add('text', array(
+    $groups->add('number', array(
       'id' => 'year',
       'labelClass' => 'g-input icon-calendar',
       'itemClass' => 'width50',
       'label' => '{LNG_Academic year}',
       'title' => '{LNG_Please fill in} {LNG_Academic year}',
       'maxlength' => 4,
-      'pattern' => '[0-9]+',
       'required' => true,
       'value' => $request->request('year', self::$cfg->academic_year)->toInt()
     ));
@@ -116,7 +115,7 @@ class View extends \Gcms\View
     ));
     // submit
     $fieldset->add('submit', array(
-      'class' => 'button save large',
+      'class' => 'button save large icon-save',
       'value' => '{LNG_Import}'
     ));
     // type

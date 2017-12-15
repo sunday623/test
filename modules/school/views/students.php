@@ -50,6 +50,10 @@ class View extends \Gcms\View
       'name' => array(
         'text' => '{LNG_Name} {LNG_Surname}',
         'sort' => 'name'
+      ),
+      'phone' => array(
+        'text' => '{LNG_Phone}',
+        'class' => 'center'
       )
     );
     $cols = array(

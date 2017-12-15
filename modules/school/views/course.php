@@ -67,21 +67,20 @@ class View extends \Gcms\View
     ));
     $groups = $fieldset->add('groups');
     // credit
-    $groups->add('text', array(
+    $groups->add('number', array(
       'id' => 'credit',
       'labelClass' => 'g-input icon-number',
       'itemClass' => 'width50',
       'label' => '{LNG_Credit}',
-      'pattern' => '[0-9\.]+',
+      'data-keyboard' => '1234567890.',
       'value' => $course->credit
     ));
     // period
-    $groups->add('text', array(
+    $groups->add('number', array(
       'id' => 'period',
       'labelClass' => 'g-input icon-clock',
       'itemClass' => 'width50',
       'label' => '{LNG_Period}',
-      'pattern' => '[0-9]+',
       'value' => $course->period
     ));
     $groups = $fieldset->add('groups');
@@ -103,15 +102,27 @@ class View extends \Gcms\View
       'options' => \Index\Category\Model::init('class')->toSelect(),
       'value' => $course->class
     ));
+    // สามารถจัดการรายวิชาทั้งหมดได้
+    if (Login::checkPermission($login, 'can_manage_course')) {
+      // teacher_id
+      $fieldset->add('select', array(
+        'id' => 'teacher_id',
+        'labelClass' => 'g-input icon-customer',
+        'itemClass' => 'item',
+        'label' => '{LNG_Teacher}',
+        'comment' => '{LNG_If no instructor is specified. No need to complete the academic year and semester.}',
+        'options' => ArrayTool::merge(array(0 => '{LNG_please select}'), \School\Teacher\Model::init()->toSelect(0)),
+        'value' => $course->teacher_id
+      ));
+    }
     $groups = $fieldset->add('groups');
     // year
-    $groups->add('text', array(
+    $groups->add('number', array(
       'id' => 'year',
       'labelClass' => 'g-input icon-calendar',
       'itemClass' => 'width50',
       'label' => '{LNG_Academic year}',
       'maxlength' => 4,
-      'pattern' => '[0-9]+',
       'value' => $course->year
     ));
     // term
@@ -123,24 +134,12 @@ class View extends \Gcms\View
       'options' => \Index\Category\Model::init('term')->toSelect(),
       'value' => $course->term
     ));
-    // สามารถจัดการรายวิชาทั้งหมดได้
-    if (Login::checkPermission($login, 'can_manage_course')) {
-      // teacher_id
-      $fieldset->add('select', array(
-        'id' => 'teacher_id',
-        'labelClass' => 'g-input icon-customer',
-        'itemClass' => 'item',
-        'label' => '{LNG_Teacher}',
-        'options' => ArrayTool::merge(array(0 => '{LNG_please select}'), \School\Teacher\Model::init()->toSelect(0)),
-        'value' => $course->teacher_id
-      ));
-    }
     $fieldset = $form->add('fieldset', array(
       'class' => 'submit'
     ));
     // submit
     $fieldset->add('submit', array(
-      'class' => 'button save large',
+      'class' => 'button save large icon-save',
       'value' => '{LNG_Save}'
     ));
     // id

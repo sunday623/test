@@ -191,7 +191,8 @@
     },
     _doButton: function (input) {
       var action = '',
-        patt = /^([a-z_\-]+)_([0-9]+)(_([0-9]+))?$/;
+        patt = /^([a-z_\-]+)_([0-9]+)(_([0-9]+))?$/,
+        q = input.get('data-confirm');
       if (this.options.actionConfirm) {
         var fn = window[this.options.actionConfirm],
           hs = patt.exec(input.id);
@@ -202,7 +203,7 @@
         } else {
           action = 'action=' + input.id;
         }
-      } else {
+      } else if (!q || confirm(q)) {
         hs = patt.exec(input.id);
         if (hs) {
           if (hs[1] == 'delete') {
@@ -225,9 +226,6 @@
     initTBODY: function (tbody, tr) {
       var row = 0,
         temp = this;
-      var doSelect = function () {
-        temp.callAction(this, 'action=' + this.id + '&value=' + this.value);
-      };
       forEach($G(tbody).elems('tr'), function () {
         if (temp.options.pmButton) {
           this.id = temp.table.id + '_' + row;
@@ -248,9 +246,6 @@
                   temp._doButton(this);
                 });
               }
-            });
-            forEach(this.elems('select'), function () {
-              $G(this).addEvent('change', doSelect);
             });
           }
         }

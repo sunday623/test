@@ -150,13 +150,12 @@ class View extends \Gcms\View
       'title' => '{LNG_Current Academic Year}'
     ));
     // academic_year
-    $fieldset->add('text', array(
+    $fieldset->add('number', array(
       'id' => 'academic_year',
       'labelClass' => 'g-input icon-calendar',
       'itemClass' => 'item',
       'label' => '{LNG_Academic year}',
       'maxlength' => 4,
-      'pattern' => '[0-9]+',
       'value' => isset(self::$cfg->academic_year) ? self::$cfg->academic_year : Date::format(0, 'Y')
     ));
     // term
@@ -173,7 +172,7 @@ class View extends \Gcms\View
     ));
     // submit
     $fieldset->add('submit', array(
-      'class' => 'button save large',
+      'class' => 'button save large icon-save',
       'value' => '{LNG_Save}'
     ));
     return $form->render();

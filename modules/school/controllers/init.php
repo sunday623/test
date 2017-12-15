@@ -61,6 +61,10 @@ class Controller extends \Kotchasan\KBase
         'url' => 'index.php?module=school-courses'
       );
       $submenus[] = array(
+        'text' => '{LNG_Import} {LNG_Course}',
+        'url' => 'index.php?module=school-import&amp;type=course'
+      );
+      $submenus[] = array(
         'text' => '{LNG_Add New} {LNG_Course}',
         'url' => 'index.php?module=school-course'
       );

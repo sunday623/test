@@ -89,11 +89,23 @@ class View extends \Gcms\View
       'value' => isset(self::$cfg->edocument_upload_size) ? self::$cfg->edocument_upload_size : ':upload_max_filesize'
     ));
     $fieldset = $form->add('fieldset', array(
+      'title' => '{LNG_Download}'
+    ));
+    // edocument_download_action
+    $fieldset->add('select', array(
+      'id' => 'edocument_download_action',
+      'labelClass' => 'g-input icon-download',
+      'itemClass' => 'item',
+      'label' => '{LNG_When download}',
+      'options' => Language::get('DOWNLOAD_ACTIONS'),
+      'value' => isset(self::$cfg->edocument_download_action) ? self::$cfg->edocument_download_action : 0
+    ));
+    $fieldset = $form->add('fieldset', array(
       'class' => 'submit'
     ));
     // submit
     $fieldset->add('submit', array(
-      'class' => 'button save large',
+      'class' => 'button save large icon-save',
       'value' => '{LNG_Save}'
     ));
     \Gcms\Controller::$view->setContentsAfter(array(

@@ -46,6 +46,8 @@ class View extends \Gcms\View
       'model' => \Edocument\Received\Model::toDataTable($login),
       /* รายการต่อหน้า */
       'perPage' => $request->cookie('edocument_perPage', 30)->toInt(),
+      /* เรียงลำดับ */
+      'sort' => 'new,last_update DESC',
       /* ฟังก์ชั่นจัดรูปแบบการแสดงผลแถวของตาราง */
       'onRow' => array($this, 'onRow'),
       /* คอลัมน์ที่ไม่ต้องแสดงผล */

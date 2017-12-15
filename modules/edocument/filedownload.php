@@ -17,8 +17,10 @@ if (is_file($file['file'])) {
     header('Pragma: public');
     header('Expires: -1');
     header('Cache-Control: public, must-revalidate, post-check=0, pre-check=0');
-    header('Content-Disposition: attachment; filename='.$file['name']);
-    header('Content-Type: application/octet-stream');
+    if ($file['name'] != '') {
+      header('Content-Disposition: attachment; filename='.$file['name']);
+    }
+    header('Content-Type: '.$file['mime']);
     header('Content-Length: '.filesize($file['file']));
     header('Accept-Ranges: bytes');
     while (!feof($f)) {

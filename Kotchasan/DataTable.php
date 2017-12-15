@@ -789,6 +789,8 @@ class DataTable extends \Kotchasan\KBase
               $prop = array('class' => $this->cols['buttons']['class'].' buttons');
             }
             $row[] = str_replace($patt, $replace, $this->td($id, $i, $prop, implode('', $buttons), ''));
+          } else {
+            $row[] = $this->td($id, $i, array(), '', '');
           }
         }
         if ($this->pmButton) {

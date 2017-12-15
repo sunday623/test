@@ -38,8 +38,7 @@ class Model extends \Kotchasan\Model
       ->where(array('E.document_id', 'A.id'));
     $query = $model->db()->createQuery()
       ->select('A.id', 'A.document_no', 'A.ext', 'A.topic', 'A.sender_id', 'A.size', 'A.last_update', array($sql2, 'downloads'))
-      ->from('edocument A')
-      ->order('A.last_update DESC');
+      ->from('edocument A');
     if ($id > 0) {
       // ไม่ใช่ผู้ดูแลดูได้แค่เอกสารของตัวเอง
       $query->where(array('sender_id', $id));

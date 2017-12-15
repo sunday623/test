@@ -72,11 +72,7 @@ class Template
    */
   public static function create($owner, $module, $name)
   {
-    $obj = new static;
-    $obj->skin = $obj->load($owner, $module, $name);
-    $obj->items = array();
-    $obj->num = -1;
-    return $obj;
+    return self::createFromHTML(self::load($owner, $module, $name));
   }
 
   /**
@@ -90,14 +86,25 @@ class Template
   public static function createFromFile($filename)
   {
     if (is_file($filename)) {
-      $obj = new static;
-      $obj->skin = file_get_contents($filename);
-      $obj->items = array();
-      $obj->num = -1;
-      return $obj;
+      return self::createFromHTML(file_get_contents($filename));
     } else {
       throw new \InvalidArgumentException('Template file not found');
     }
+  }
+
+  /**
+   * สร้าง template จาก HTML
+   *
+   * @param string $html
+   * @return \static
+   */
+  public static function createFromHTML($html)
+  {
+    $obj = new static;
+    $obj->skin = $html;
+    $obj->items = array();
+    $obj->num = -1;
+    return $obj;
   }
 
   /**

@@ -93,7 +93,7 @@ class Model extends \Kotchasan\Model
               // สถานะนักเรียน
               $user['status'] = isset(self::$cfg->student_status) ? self::$cfg->student_status : 0;
               // register
-              $user = \Index\Register\Model::execute($this, $user);
+              $user = \Index\Register\Model::execute($this, $user, array());
               // id ของนักเรียน
               $student['id'] = $user['id'];
             } else {

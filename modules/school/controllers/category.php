@@ -41,7 +41,9 @@ class Controller extends \Gcms\Controller
     // สามารถตั้งค่าระบบได้
     if ($title !== null && Login::checkPermission(Login::isMember(), 'can_config')) {
       // แสดงผล
-      $section = Html::create('section');
+      $section = Html::create('section', array(
+          'class' => 'content_bg'
+      ));
       // breadcrumbs
       $breadcrumbs = $section->add('div', array(
         'class' => 'breadcrumbs'

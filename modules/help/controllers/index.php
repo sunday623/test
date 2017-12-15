@@ -35,7 +35,9 @@ class Controller extends \Gcms\Controller
     // เลือกเมนู
     $this->menu = 'help';
     // แสดงผล
-    $section = Html::create('section');
+    $section = Html::create('section', array(
+        'class' => 'content_bg'
+    ));
     // breadcrumbs
     $breadcrumbs = $section->add('div', array(
       'class' => 'breadcrumbs'
