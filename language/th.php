@@ -1,6 +1,7 @@
 <?php
 /* language/th.php */
 return array(
+  'Academic results' => 'ผลการเรียน',
   'Academic year' => 'ปีการศึกษา',
   'Add' => 'เพิ่ม',
   'Add New' => 'เพิ่ม',
@@ -75,6 +76,10 @@ return array(
   'Document title' => 'หัวข้อเอกสาร',
   'Download' => 'ดาวน์โหลด',
   'Download history' => 'ประวัติการดาวน์โหลด',
+  'DOWNLOAD_ACTIONS' => array(
+    0 => 'ดาวน์โหลดไฟล์',
+    1 => 'เปิดไฟล์ (ที่รู้จัก)'
+  ),
   'drag to order' => 'ลากเพื่อจัดลำดับ',
   'E-Document' => 'งานสารบรรณ',
   'E-Document list' => 'รายการเอกสาร',
@@ -326,6 +331,7 @@ return array(
   'Welcome' => 'สวัสดี',
   'Welcome %s, login complete' => 'สวัสดี คุณ %s ยินดีต้อนรับเข้าสู่ระบบ',
   'When adding a new document Email alert to the recipient. When enabled this option.' => 'เมื่อมีการสร้างเอกสารใหม่ สามารถส่งอีเมล์แจ้งเตือนไปยังผู้รับได้ เมื่อเปิดใช้ความสามารถนี้',
+  'When download' => 'เมื่อคลิกดาวน์โหลด',
   'Width' => 'กว้าง',
   'With selected' => 'ทำกับที่เลือก',
   'YEAR_OFFSET' => 543,

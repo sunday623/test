@@ -29,6 +29,10 @@ return array(
     5 => 'Fr',
     6 => 'Sa'
   ),
+  'DOWNLOAD_ACTIONS' => array(
+    0 => 'Download',
+    1 => 'Open file (know file type)'
+  ),
   'MAIL_PROGRAMS' => array(
     0 => 'Send with PHP',
     1 => 'Send with PHPMailer (recommended).'
