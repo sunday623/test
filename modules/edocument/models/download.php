@@ -57,9 +57,11 @@ class Model extends \Kotchasan\Model
             // บันทึกรายละเอียดการดาวน์โหลดลง SESSION
             $_SESSION[$id] = array(
               'file' => $file,
-              'name' => $result->topic.'.'.$result->ext
+              'name' => self::$cfg->edocument_download_action == 1 ? '' : $result->topic.'.'.$result->ext,
+              'mime' => self::$cfg->edocument_download_action == 1 ? \Kotchasan\Mime::get($result->ext) : 'application/octet-stream'
             );
             // คืนค่า
+            $ret['target'] = self::$cfg->edocument_download_action;
             $ret['url'] = WEB_URL.'modules/edocument/filedownload.php?id='.$id;
           } else {
             // ไม่พบไฟล์

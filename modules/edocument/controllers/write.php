@@ -43,7 +43,9 @@ class Controller extends \Gcms\Controller
     // สามารถจัดการรายชื่อบุคลากรได้
     if ($index && Login::checkPermission($login, 'can_upload_edocument')) {
       // แสดงผล
-      $section = Html::create('section');
+      $section = Html::create('section', array(
+          'class' => 'content_bg'
+      ));
       // breadcrumbs
       $breadcrumbs = $section->add('div', array(
         'class' => 'breadcrumbs'

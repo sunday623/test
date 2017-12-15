@@ -104,7 +104,8 @@ class Model extends \Kotchasan\Model
     if (!isset($save['password'])) {
       $save['password'] = '';
     } else {
-      $save['password'] = sha1($save['password'].$save['username']);
+      $save['salt'] = uniqid();
+      $save['password'] = sha1($save['password'].$save['salt']);
     }
     $save['permission'] = empty($permission) ? '' : implode(',', $permission);
     $save['active'] = 1;

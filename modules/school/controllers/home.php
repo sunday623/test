@@ -30,7 +30,7 @@ class Controller extends \Kotchasan\KBase
   public static function addCard(Request $request, $card, $login)
   {
     $datas = \School\Home\Model::getCount();
-    \Index\Home\Controller::renderCard($card, 'icon-user', 'Student', $datas->student, 'Student list', 'index.php?module=school-students');
-    \Index\Home\Controller::renderCard($card, 'icon-customer', 'Teacher', $datas->teacher, 'Personnel list', 'index.php?module=personnel-setup&amp;active=1');
+    \Index\Home\Controller::renderCard($card, 'icon-user', '{LNG_Student}', number_format($datas->student), '{LNG_Student list}', 'index.php?module=school-students');
+    \Index\Home\Controller::renderCard($card, 'icon-customer', '{LNG_Teacher}', number_format($datas->teacher), '{LNG_Personnel list}', 'index.php?module=personnel-setup&amp;active=1');
   }
 }

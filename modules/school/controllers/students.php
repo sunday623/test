@@ -38,7 +38,9 @@ class Controller extends \Gcms\Controller
     // ครู-อาจาร์ย, สามารถจัดการรายชื่อนักเรียนได้
     if (Login::isTeacher('can_manage_student')) {
       // แสดงผล
-      $section = Html::create('section');
+      $section = Html::create('section', array(
+          'class' => 'content_bg'
+      ));
       // breadcrumbs
       $breadcrumbs = $section->add('div', array(
         'class' => 'breadcrumbs'

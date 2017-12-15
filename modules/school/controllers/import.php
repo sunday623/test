@@ -48,12 +48,21 @@ class Controller extends \Gcms\Controller
         // ครู-อาจาร์ย, สามารถจัดการรายชื่อนักเรียนได้
         $login = Login::isTeacher('can_manage_student');
         break;
+      case 'course':
+        $className = 'School\Importcourse\View';
+        $this->title .= Language::get('Course');
+        $breadcrumb = '<li><a href="{BACKURL?module=school-courses&id=0}">{LNG_Course}</a></li>';
+        // ครู-อาจาร์ย, สามารถจัดการรายชื่อนักเรียนได้
+        $login = Login::isTeacher('can_manage_student');
+        break;
     }
     // เลือกเมนู
     $this->menu = 'module';
     if (!empty($login)) {
       // แสดงผล
-      $section = Html::create('section');
+      $section = Html::create('section', array(
+          'class' => 'content_bg'
+      ));
       // breadcrumbs
       $breadcrumbs = $section->add('div', array(
         'class' => 'breadcrumbs'

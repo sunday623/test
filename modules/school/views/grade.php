@@ -25,6 +25,9 @@ class View extends \Gcms\View
    * ข้อมูลโมดูล
    */
   private $typies;
+  private $credit;
+  private $total_credit;
+  private $total;
 
   /**
    * ตารางผลการเรียน
@@ -39,6 +42,9 @@ class View extends \Gcms\View
     $student->year = $request->request('year', self::$cfg->academic_year)->toInt();
     $student->term = $request->request('term', self::$cfg->term)->toInt();
     $this->typies = Language::get('COURSE_TYPIES');
+    $this->credit = 0;
+    $this->total_credit = 0;
+    $this->total = 0;
     // URL สำหรับส่งให้ตาราง
     $uri = $request->createUriWithGlobals(WEB_URL.'index.php');
     // ตาราง
@@ -51,6 +57,8 @@ class View extends \Gcms\View
       'sort' => 'course_code',
       /* ฟังก์ชั่นจัดรูปแบบการแสดงผลแถวของตาราง */
       'onRow' => array($this, 'onRow'),
+      /* สร้าง footer */
+      'onCreateFooter' => array($this, 'onCreateFooter'),
       /* คอลัมน์ที่ไม่ต้องแสดงผล */
       'hideColumns' => array('id'),
       /* ไม่แสดง checkbox */
@@ -131,7 +139,27 @@ class View extends \Gcms\View
    */
   public function onRow($item, $o, $prop)
   {
+    if ($item['credit'] > 0 && $item['grade'] > 0) {
+      $this->credit += $item['credit'];
+      $this->total += ($item['grade'] * $item['credit']);
+    }
+    $this->total_credit += $item['credit'];
+    $item['credit'] = $item['credit'] == 0 ? '' : $item['credit'];
     $item['type'] = isset($this->typies[$item['type']]) ? $this->typies[$item['type']] : '';
     return $item;
+  }
+
+  /**
+   * ฟังก์ชั่นสร้างแถวของ footer
+   *
+   * @return string
+   */
+  public function onCreateFooter()
+  {
+    if ($this->total_credit > 0) {
+      return '<tr><td colspan=2></td><td class=center>{LNG_Academic results}</td><td class=center>'.number_format($this->credit, 1, '.', '').'</td><td class=center>'.number_format($this->total / $this->total_credit, 2, '.', '').'</td></tr>';
+    } else {
+      return '<tr><td colspan=5></td></tr>';
+    }
   }
 }

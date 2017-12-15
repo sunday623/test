@@ -38,7 +38,9 @@ class Controller extends \Gcms\Controller
     // สามารถจัดการรายชื่อบุคลากรได้
     if (Login::checkPermission(Login::isMember(), 'can_manage_personnel')) {
       // แสดงผล
-      $section = Html::create('section');
+      $section = Html::create('section', array(
+          'class' => 'content_bg'
+      ));
       // breadcrumbs
       $breadcrumbs = $section->add('div', array(
         'class' => 'breadcrumbs'

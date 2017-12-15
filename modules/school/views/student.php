@@ -69,12 +69,11 @@ class View extends \Gcms\View
       'comment' => $student->id == 0 ? '{LNG_Identification number and Birthday Used to login}' : '<label><input type=checkbox name=updatepassword value=1>&nbsp;{LNG_Update username and password with personal identification number and birthday}</label>'
     ));
     // id_card
-    $groups->add('text', array(
+    $groups->add('number', array(
       'id' => 'student_id_card',
       'labelClass' => 'g-input icon-profile',
       'itemClass' => 'width50',
       'label' => '{LNG_Identification number}',
-      'pattern' => '[0-9]+',
       'maxlength' => 13,
       'value' => $student->id_card,
       'validator' => array('keyup,change', 'checkIdcard')
@@ -168,7 +167,7 @@ class View extends \Gcms\View
     ));
     // submit
     $fieldset->add('submit', array(
-      'class' => 'button save large',
+      'class' => 'button save large icon-save',
       'value' => '{LNG_Save}'
     ));
     // id

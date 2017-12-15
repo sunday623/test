@@ -66,7 +66,7 @@ class Model
         ),
       ),
       'signout' => array(
-        'text' => '{LNG_Sign Out}',
+        'text' => '{LNG_Sign out}',
         'url' => 'index.php?action=logout'
       ),
       'help' => array(

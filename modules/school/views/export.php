@@ -27,8 +27,10 @@ class View extends \Gcms\View
    * @param object $student
    * @param array $header
    * @param array $datas
+   * @param double $credit
+   * @param double $grade
    */
-  public static function render($student, $header, $datas)
+  public static function render($student, $header, $datas, $credit, $grade)
   {
     $thead = '';
     foreach ($header as $item) {
@@ -46,6 +48,8 @@ class View extends \Gcms\View
     // template
     $template = Template::createFromFile(ROOT_PATH.'modules/school/views/mygrade.html');
     $template->add(array(
+      '/%CREDITS%/' => number_format($credit, 1, '.', ''),
+      '/%GRADES%/' => number_format($grade, 2, '.', ''),
       '/%STUDENT%/' => $student->student_id,
       '/%NAME%/' => $student->name,
       '/%NUMBER%/' => $student->number,

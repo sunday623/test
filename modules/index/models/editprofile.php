@@ -62,7 +62,7 @@ class Model extends \Kotchasan\Model
         $save = array(
           'name' => $request->post('register_name')->topic(),
           'phone' => $request->post('register_phone')->topic(),
-          'status' => $request->post('register_status')->toInt(),
+          'status' => $request->post('register_status')->toInt()
         );
         $permission = $request->post('register_permission', array())->topic();
         // Model
@@ -132,7 +132,8 @@ class Model extends \Kotchasan\Model
             if (empty($ret)) {
               // แก้ไข
               if (!empty($password)) {
-                $save['password'] = sha1($password.$save['username']);
+                $save['salt'] = uniqid();
+                $save['password'] = sha1($password.$save['salt']);
               }
               // แก้ไข
               $db->update($table_user, $index['id'], $save);

@@ -38,7 +38,9 @@ class Controller extends \Gcms\Controller
     // ครู-อาจาร์ย, สามารถจัดการรายวิชาได้
     if ($login = Login::isTeacher('can_manage_course')) {
       // แสดงผล
-      $section = Html::create('section');
+      $section = Html::create('section', array(
+          'class' => 'content_bg'
+      ));
       // breadcrumbs
       $breadcrumbs = $section->add('div', array(
         'class' => 'breadcrumbs'

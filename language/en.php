@@ -94,6 +94,11 @@ return array(
     '3.5' => '3.5',
     4 => '4'
   ),
+  'SCHOOL_TERMS' => array(
+    1 => '1',
+    2 => '2',
+    3 => 'Summer'
+  ),
   'SEXES' => array(
     'f' => 'Female',
     'm' => 'Male'
