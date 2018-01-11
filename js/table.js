@@ -141,6 +141,7 @@
             temp.input_search.value = "";
           });
         } else if (this.id != '') {
+        } else {
           callClick(this, function () {
             temp._doButton(this);
           });
