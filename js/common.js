@@ -100,10 +100,9 @@ function defaultSubmit(ds) {
         el.valid();
       } else {
         if (val == 'this' || val == 'Please fill in' || val == 'Please browse file') {
-          if (el.placeholder) {
+          t = el.title.strip_tags();
+          if (t == '' && el.placeholder) {
             t = el.placeholder.strip_tags();
-          } else {
-            t = el.title.strip_tags();
           }
           val = val == 'this' ? t : trans(val) + ' ' + t;
         }
