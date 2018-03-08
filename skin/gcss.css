@@ -392,6 +392,9 @@ button {
   font-size: inherit;
   line-height: inherit;
   vertical-align: middle;
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
 }
 input[type="text"],
 input[type="password"],
@@ -461,8 +464,9 @@ input[type="color"] {
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: #74B9F0;
-  border-color: rgba(82,168,236,0.8);
+  box-shadow: 0 0 3px rgba(82,168,236,0.8) inset;
+  -moz-box-shadow: 0 0 3px rgba(82,168,236,0.8) inset;
+  -webkit-box-shadow: 0 0 3px rgba(82,168,236,0.8) inset;
   outline: none;
 }
 input[type="file"]:focus,
@@ -504,72 +508,48 @@ input[type="url"],
 input[type="color"] {
   height: 2.3em;
 }
-input[type="range"] {
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+.grange_div {
+  margin: 9px 0;
+  position: relative;
   width: 100%;
-  background: rgba(0,0,0,0.1);
-  outline: none;
-  height: 4px;
-  border: 1px solid rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.1);
+  height: 8px;
+  box-shadow: 0 0 1px rgba(0,0,0,0.2) inset;
+  -moz-box-shadow: 0 0 1px rgba(0,0,0,0.2) inset;
+  -webkit-box-shadow: 0 0 1px rgba(0,0,0,0.2) inset;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
 }
-input[type="range"]::-moz-range-track {
-  border: inherit;
-  background: transparent;
-}
-input[type="range"]::-ms-track {
-  border: inherit;
-  color: transparent;
-  background: transparent;
-}
-input[type="range"]::-ms-fill-lower,
-input[type="range"]::-ms-fill-upper {
-  background: transparent;
-}
-input[type="range"]::-ms-tooltip {
-  display: none;
-}
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border: none;
-  border-radius: 50em;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #529de1), color-stop(100%, #245e8f));
-  background-image: -webkit-linear-gradient(top , #529de1 0, #245e8f 100%);
-  background-image: linear-gradient(to bottom, #529de1 0, #245e8f 100%);
-}
-input[type="range"]:focus::-webkit-slider-thumb {
+.grange_range {
+  position: absolute;
+  top: 0;
+  height: 100%;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7abcff), color-stop(100%, #4096ee));
   background-image: -webkit-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%);
   background-image: linear-gradient(to bottom,  #7abcff 0%,#60abf8 44%,#4096ee 100%);
 }
-input[type="range"]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border: none;
+.grange_button {
+  position: absolute;
+  top: -9px;
+  width: 26px;
+  height: 26px;
   border-radius: 50em;
+  -moz-border-radius: 50em;
+  -webkit-border-radius: 50em;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #529de1), color-stop(100%, #245e8f));
+  background-image: -webkit-linear-gradient(top , #529de1 0, #245e8f 100%);
   background-image: linear-gradient(to bottom, #529de1 0, #245e8f 100%);
 }
-input[type="range"]:focus::-moz-range-thumb{
+.grange_button:hover,
+.grange_button:focus {
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7abcff), color-stop(100%, #4096ee));
+  background-image: -webkit-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%);
   background-image: linear-gradient(to bottom,  #7abcff 0%,#60abf8 44%,#4096ee 100%);
 }
-input[type="range"]::-ms-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50em;
-  border: 0;
-  background-image: linear-gradient(to bottom, #529de1 0, #245e8f 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#529de1', endColorstr='#245e8f',GradientType=0 );
-}
-input[type="range"]:focus::-ms-thumb {
-  background-image: linear-gradient(to bottom,  #7abcff 0%,#60abf8 44%,#4096ee 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 );
+.grange_button:focus {
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  outline: none;
 }
 select[size] {
   padding: 2px 0 1px 1px;
@@ -2196,7 +2176,6 @@ input.gcalendar {
   background-image: url();
   max-width: none;
   background-color: #FFF;
-  color: inherit;
 }
 /* widget calendar */
 div.calendar div {
@@ -3148,6 +3127,9 @@ fieldset.search input[type="text"] {
 }
 fieldset.search input[type="text"]:focus {
   width: 150px;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
 }
 fieldset.search button {
   width: 2.3em;
@@ -3229,7 +3211,6 @@ td.buttons .button:last-child {
   -ms-text-overflow: ellipsis;
   overflow: hidden;
   display: block;
-  margin: 10px 0 0;
 }
 .thumbview .description {
   height: 4.3em;
@@ -3321,7 +3302,7 @@ td.buttons .button:last-child {
 #tb_upload {
   overflow: hidden;
   clear: both;
-  margin-bottom: 0;
+  margin: 0 10px;
 }
 #tb_upload .icon-thumbnail,
 #tb_upload .icon-uncheck,

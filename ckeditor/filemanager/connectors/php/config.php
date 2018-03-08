@@ -30,7 +30,7 @@ session_start();
 // load Kotchasan
 include '../../../../load.php';
 // Initial Kotchasan Framework
-Kotchasan::createWebApplication();
+Kotchasan::createWebApplication('Gcms\Config');
 // ตรวจสอบการ login สำหรับสมาชิกเท่านั้น
 $config['Enabled'] = Kotchasan\CKEditor::enabledUpload();
 // กำหนดการอัปโหลดไฟล์โดยใช้ชื่อเดิม หรือเป็นตัวเลข (เวลา)
@@ -38,9 +38,9 @@ $config['Enabled'] = Kotchasan\CKEditor::enabledUpload();
 // false ใช้ชื่อไฟล์เป็นเวลา (mktime)
 $config['UploadOrginalFilename'] = false;
 // โฟลเดอร์ ที่เก็บไฟล์
-$config['UserFilesPath'] = DATA_FOLDER;
+$config['UserFilesPath'] = DATA_FOLDER.'/';
 // path ที่เก็บไฟล์ตั้งแต่ root ของ Server
-$config['UserFilesAbsolutePath'] = ROOT_PATH.DATA_FOLDER;
+$config['UserFilesAbsolutePath'] = ROOT_PATH.DATA_FOLDER.'/';
 // Due to security issues with Apache modules, it is recommended to leave the
 // following setting enabled.
 $config['ForceSingleExtension'] = true;
