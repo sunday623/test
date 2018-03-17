@@ -233,14 +233,14 @@ function initAutoComplete(id, link, displayFields, icon, options) {
   }
   function doCallBack() {
     for (var prop in this) {
-      $G(prop).setValue(this[prop] == 'null' ? '' : this[prop]);
+      $G(prop).setValue(this[prop] === null ? '' : this[prop]);
     }
     obj.valid();
   }
   function doPopulate() {
     var datas = new Array();
     for (var i in df) {
-      if (this[df[i]] != 'null' && this[df[i]] != '') {
+      if (this[df[i]] !== null && this[df[i]] != '') {
         datas.push(this[df[i]]);
       }
     }

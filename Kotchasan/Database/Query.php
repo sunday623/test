@@ -26,6 +26,12 @@ abstract class Query extends \Kotchasan\Database\Db
    * @var array
    */
   protected $sqls;
+  /**
+   * true แสดง Query ออกทางหน่าจอก่อนการ execute
+   *
+   * @var boolean
+   */
+  protected $debugger = false;
 
   /**
    * ฟังก์ชั่นสำหรับจัดกลุ่มคำสั่ง และ เชื่อมแต่ละกลุ่มด้วย AND
@@ -78,6 +84,16 @@ abstract class Query extends \Kotchasan\Database\Db
       return $sql;
     }
     return '';
+  }
+
+  /**
+   * คำสั่งสำหรับแสดง Query ออกทางหน้าจอ
+   * ใช้ในการ debug Query
+   */
+  public function debug()
+  {
+    echo '<pre>'.$this->text().'</pre>';
+    return $this;
   }
 
   /**

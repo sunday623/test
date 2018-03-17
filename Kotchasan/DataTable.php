@@ -565,7 +565,7 @@ class DataTable extends \Kotchasan\KBase
     }
     if (isset($this->model)) {
       // debug Query
-      //echo $this->model->toArray()->limit($this->perPage, $start)->text();
+      //\Kotchasan::debug($this->model->toArray()->limit($this->perPage, $start)->text());
       // query ข้อมูล
       $this->datas = $this->model->toArray()->limit($this->perPage, $start)->execute();
       // รายการสุดท้าย
@@ -949,14 +949,24 @@ class DataTable extends \Kotchasan\KBase
    */
   private function addFilter($item)
   {
-    $row = '<fieldset><label>'.$item['text'].' <select name="'.$item['name'].'">';
-    if (!empty($item['options'])) {
-      foreach ($item['options'] as $key => $text) {
-        $sel = (string)$key == $item['value'] ? ' selected' : '';
-        $row .= '<option value="'.$key.'"'.$sel.'>'.$text.'</option>';
+    if (isset($item['type'])) {
+      $prop = array();
+      foreach ($item as $key => $value) {
+        if ($key != 'text' && $key != 'default') {
+          $prop[$key] = $key.'="'.$value.'"';
+        }
       }
+      $row = '<fieldset><label>'.$item['text'].' <input '.implode(' ', $prop).'></label></fieldset>';
+    } else {
+      $row = '<fieldset><label>'.$item['text'].' <select name="'.$item['name'].'">';
+      if (!empty($item['options'])) {
+        foreach ($item['options'] as $key => $text) {
+          $sel = (string)$key == $item['value'] ? ' selected' : '';
+          $row .= '<option value="'.$key.'"'.$sel.'>'.$text.'</option>';
+        }
+      }
+      $row .= '</select></label></fieldset>';
     }
-    $row .= '</select></label></fieldset>';
     return $row;
   }
 }

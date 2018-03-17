@@ -42,12 +42,13 @@ class Controller extends \Gcms\Controller
     Template::init(self::$cfg->skin);
     // View
     self::$view = new \Gcms\View;
+    // Javascript
+    self::$view->addScript('var WEB_URL="'.WEB_URL.'";');
     if ($login = Login::isMember()) {
       // โหลดเมนู
       self::$menus = \Index\Menu\Controller::init($login);
       // Javascript
-      self::$view->addScript('var FIRST_MODULE="'.self::$menus->home().'"');
-      self::$view->addScript('var WEB_URL="'.WEB_URL.'";');
+      self::$view->addScript('var FIRST_MODULE="'.self::$menus->home().'";');
       // โหลดค่าติดตั้งโมดูล
       $dir = ROOT_PATH.'modules/';
       $f = @opendir($dir);

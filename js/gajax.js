@@ -105,7 +105,7 @@ window.$K = (function () {
   Date.prototype.formatter = function (c) {
     switch (c) {
       case "d":
-        return this.getDate();
+        return this.getDate().toString().leftPad(2, '0');
       case "D":
         return Date.dayNames[this.getDay()];
       case "y":
@@ -113,7 +113,7 @@ window.$K = (function () {
       case "Y":
         return (this.getFullYear() + Date.yearOffset).toString();
       case "m":
-        return this.getMonth() + 1;
+        return (this.getMonth() + 1).toString().leftPad(2, '0');
       case "M":
         return Date.monthNames[this.getMonth()];
       case "H":
