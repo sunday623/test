@@ -227,7 +227,7 @@ CREATE TABLE `{prefix}_user` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `{prefix}_user` (`id`, `username`, `salt`, `password`, `status`, `permission`, `name`) VALUES
-(1, 'admin@localhost', 'admin@localhost', 'b620e8b83d7fcf7278148d21b088511917762014', 1, 'can_config,can_handle_all_edocument,can_upload_edocument', 'แอดมิน');
+(1, 'admin@localhost', 'admin@localhost', 'b620e8b83d7fcf7278148d21b088511917762014', 1, ',can_config,can_handle_all_edocument,can_upload_edocument,', 'แอดมิน');
 --
 -- Indexes for dumped tables
 --
