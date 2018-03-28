@@ -202,7 +202,11 @@ var dataTableActionCallback = function (xhr) {
       val = ds[prop];
       if (prop == 'location') {
         if (val == 'reload') {
-          loader.reload();
+          if (loader) {
+            loader.reload();
+          } else {
+            window.location.reload();
+          }
         } else {
           window.location = val;
         }
@@ -334,27 +338,20 @@ function initSystem() {
   new Clock('server_time');
 }
 function selectMenu(module) {
-  if ($E('topmenu')) {
-    var tmp = false;
-    forEach($E('topmenu').getElementsByTagName('li'), function (item, index) {
-      var cs = new Array();
-      if (index == 0) {
-        tmp = item;
-      }
-      forEach(this.className.split(' '), function (c) {
-        if (c == module) {
-          tmp = false;
-          cs.push(c + ' select');
-        } else if (c !== '' && c != 'select' && c != 'default') {
-          cs.push(c);
-        }
-      });
-      this.className = cs.join(' ');
-    });
-    if (tmp) {
-      $G(tmp).addClass('default');
+  forEach(document.querySelectorAll('#topmenu > ul > li'), function () {
+    if ($G(this).hasClass(module)) {
+      this.addClass('select');
+    } else {
+      this.removeClass('select');
     }
-  }
+  });
+  forEach(document.querySelectorAll('.sidemenu > ul > li'), function () {
+    if ($G(this).hasClass(module)) {
+      this.addClass('select');
+    } else {
+      this.removeClass('select');
+    }
+  });
 }
 function loadJavascript(id, src) {
   var js, fjs = document.getElementsByTagName('script')[0];
@@ -495,25 +492,12 @@ function initLanguageTable(id) {
     }
   });
 }
-function validateKeyPress(input, e, patt) {
-  var val = input.value;
-  var key = GEvent.keyCode(e);
-  if (!((key > 36 && key < 41) || key == 8 || key == 9 || key == 13 || GEvent.isCtrlKey(e))) {
-    val = String.fromCharCode(key);
-    if (val !== '' && !patt.test(val)) {
-      GEvent.stop(e);
-      return false;
-    }
-  }
-  return true;
-}
 function initFirstRowNumberOnly(tr) {
-  var doKeyPress = function (e) {
-    return validateKeyPress(this, e, /[0-9]+/);
-  };
   forEach($G(tr).elems('input'), function (item, index) {
     if (index == 0) {
-      $G(item).addEvent('keypress', doKeyPress);
+      new GMask(item, function () {
+        return /^[0-9]+$/.test(this.value);
+      });
     }
   });
 }
@@ -601,6 +585,7 @@ function initWeb(module) {
           loader.init(content);
           content.replaceClass('loading', 'animation');
           content.Ready(function () {
+            $K.init(content);
             value.evalScript();
           });
         } else if (prop == 'topic') {
@@ -628,6 +613,7 @@ function initWeb(module) {
   });
   loader.initLoading('wait', false);
   loader.init(document);
+  $K.init(document.body);
 }
 if (navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
   document.addEventListener("touchstart", function () {}, false);

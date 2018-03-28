@@ -13,7 +13,7 @@ use \Gcms\Login;
 use \Kotchasan\Language;
 
 /**
- * บันทึกข้อมูลสมาชิก
+ * module=editprofile
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -84,7 +84,7 @@ class Model extends \Kotchasan\Model
             // ไม่ใช่แอดมินแก้ไขได้แค่ตัวเองเท่านั้น
             $user = null;
           } else {
-            // ไม่ใช่แอดมินและไม่ใช่ตัวเอง ไม่สามารถอัปเดท status ได้
+            // ไม่ใช่แอดมินและไม่ใช่ตัวเอง ไม่สามารถอัปเดทได้
             unset($save['status']);
           }
         }

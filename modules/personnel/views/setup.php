@@ -184,7 +184,7 @@ class View extends \Gcms\View
     $item['department'] = $this->department->get($item['department']);
     $thumb = is_file(ROOT_PATH.$item['picture']) ? WEB_URL.$item['picture'] : WEB_URL.'modules/personnel/img/noimage.jpg';
     $item['picture'] = '<img src="'.$thumb.'" style="max-height:50px" alt=thumbnail>';
-    $item['order'] = '<label><input type=text size=5 id=order_'.$item['id'].' value="'.$item['order'].'"></label>';
+    $item['order'] = '<label><input type=number size=5 id=order_'.$item['id'].' value="'.$item['order'].'"></label>';
     if ($item['active'] == 0) {
       $item['active'] = '<a id=active_0_'.$item['id'].' class="icon-valid disabled" title="'.$this->personnel_status [0].'"></a>';
     } else {

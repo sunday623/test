@@ -28,8 +28,8 @@ class Model extends \Kotchasan\Model
    */
   public function chklogin(Request $request)
   {
-    // session, token
-    if ($request->initSession() && $request->isSafe()) {
+    // session, referer
+    if ($request->initSession() && $request->isReferer()) {
       // สุ่มรหัสผ่านใหม่
       $password = uniqid();
       // db
@@ -80,7 +80,7 @@ class Model extends \Kotchasan\Model
         $save['password'] = sha1($password.$save['salt']);
         // อัปเดท
         $db->update($user_table, $search['id'], $save);
-        $save['permission'] = explode(',', trim($user['permission'], " \t\n\r\0\x0B,"));
+        $save['permission'] = explode(',', trim($save['permission'], " \t\n\r\0\x0B,"));
       } else {
         // ไม่สามารถ login ได้ เนื่องจากมี email อยู่ก่อนแล้ว
         $save = false;
@@ -88,8 +88,6 @@ class Model extends \Kotchasan\Model
         $ret['isMember'] = 0;
       }
       if (is_array($save)) {
-        // clear
-        $request->removeToken();
         // login
         $save['password'] = $password;
         $_SESSION['login'] = $save;

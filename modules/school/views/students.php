@@ -177,7 +177,7 @@ class View extends \Gcms\View
   public function onRow($item, $o, $prop)
   {
     if ($item['active'] == 1) {
-      $item['number'] = '<label><input type=text size=5 id=number_'.$item['id'].' value="'.$item['number'].'"></label>';
+      $item['number'] = '<label><input type=number size=5 id=number_'.$item['id'].' value="'.$item['number'].'"></label>';
     }
     $item['phone'] = self::showPhone($item['phone']);
     foreach ($this->params as $k => $v) {
