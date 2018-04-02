@@ -92,14 +92,13 @@ class View extends \Gcms\View
       'value' => isset(self::$cfg->provinceID) ? self::$cfg->provinceID : 102
     ));
     // zipcode
-    $groups->add('text', array(
+    $groups->add('number', array(
       'id' => 'student_zipcode',
       'labelClass' => 'g-input icon-location',
       'itemClass' => 'width50',
       'label' => '{LNG_Zipcode}',
       'comment' => '%SCHOOLZIPCODE%',
-      'pattern' => '[0-9]+',
-      'maxlength' => 10,
+      'maxlength' => 5,
       'value' => isset(self::$cfg->zipcode) ? self::$cfg->zipcode : 10000
     ));
     $fieldset = $form->add('fieldset', array(
@@ -109,7 +108,7 @@ class View extends \Gcms\View
       'comment' => '{LNG_Image size is in pixels} {LNG_Uploaded images are resized automatically}'
     ));
     // student_w
-    $groups->add('text', array(
+    $groups->add('number', array(
       'id' => 'student_w',
       'labelClass' => 'g-input icon-width',
       'itemClass' => 'width',
@@ -117,7 +116,7 @@ class View extends \Gcms\View
       'value' => isset(self::$cfg->student_w) ? self::$cfg->student_w : 500
     ));
     // student_h
-    $groups->add('text', array(
+    $groups->add('number', array(
       'id' => 'student_h',
       'labelClass' => 'g-input icon-height',
       'itemClass' => 'width',
