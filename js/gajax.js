@@ -26,7 +26,6 @@ window.$K = (function () {
           obj.tagName = tagName;
           obj.type = type;
           elem.initObj = true;
-          console.log(elem.id);
           obj.title = elem.title;
           obj.required = elem.get('required');
           obj.disabled = elem.get('disabled') !== null;
